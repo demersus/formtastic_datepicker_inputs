@@ -7,11 +7,17 @@
 #
 #format = options[:format] || Date::DATE_FORMATS[:default] || ‘%d %b %Y’
 module Formtastic
+  if defined?(ActiveSupport::CoreExtensions)
+	DATE_FORMATS = ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS
+  else
+	DATE_FORMATS = Date::DATE_FORMATS
+  end
+ 
   module DatePicker
     protected
 
     def date_picker_input(method, options = {})
-      format = options[:format] || ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS[:default] || '%d %b %Y'
+      format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y'
       string_input(method, date_picker_options(format, object.send(method)).merge(options))
     end
 
@@ -21,11 +27,11 @@ module Formtastic
       {:input_html => {:class => 'ui-date-picker',:value => value.try(:strftime, format)}}
     end
   end
-	module DateTimePicker
+  module DateTimePicker
     protected
 
     def datetime_picker_input(method, options = {})
-      format = options[:format] || ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS[:default] || '%d %b %Y'
+      format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y'
       string_input(method, datetime_picker_options(format, object.send(method)).merge(options))
     end
 
