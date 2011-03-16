@@ -1,23 +1,23 @@
 FormtasticDatepickerInputs
 ==========================
 
-This plugin is based off of a blog post by Grzegorz Brzezinka: http://blog.brzezinka.eu/webmaster-tips/ruby/ruby-on-rails-formtastic-jquery-ui-datepicker
+This plugin is based on a blog post by Grzegorz Brzezinka: http://blog.brzezinka.eu/webmaster-tips/ruby/ruby-on-rails-formtastic-jquery-ui-datepicker
 
-The concept is simple. It adds a new input into formtastic that can be used like this:  
-<% semantic_form_for @master do |f| -%>
-  <% f.inputs do -%>
-    <%= f.input :name %>
-    <%= f.input :born, :as => :date_picker %>
-  <% end -%>
-  <%= f.buttons %>
-<% end -%>
+The concept is simple. It adds a new input into formtastic that can be used like this: 
+ 
+	<% semantic_form_for @master do |f| -%>
+		<% f.inputs do -%>
+		  <%= f.input :name %>
+		  <%= f.input :born, :as => :date_picker %>
+		<% end -%>
+		<%= f.buttons %>
+	<% end -%>
 
-It adds a class onto a normal text input called 'ui-date-picker', and the parent <li> it adds a class called 'date_picker.'
-Assuming you have already referenced jquery, and jqueryui in your layout, You can then hook this with a call from jquery:
+It adds a class onto a normal text input called 'ui-date-picker', and the parent <li> it adds a class called 'date_picker.' Assuming you have already referenced jquery, and jqueryui in your layout, You can then hook this with a call from jquery:
 
-$(document).ready(function(){
-  $('input.ui-date-picker').datepicker();
-});
+	$(document).ready(function(){
+		$('input.ui-date-picker').datepicker();
+	});
 
 Development Environment
 =======================
