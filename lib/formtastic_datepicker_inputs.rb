@@ -34,7 +34,7 @@ module Formtastic
   module DateTimePicker
     protected
 
-    def datetime_picker_input(method, options = {})
+    def datetime_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y %H:%M'
 	input_opts = datetime_picker_options(format, value || object.send(method))
 	input_opts[:input_html][:class] += " #{options[:class]}" if options[:class]
