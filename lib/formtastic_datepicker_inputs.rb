@@ -16,9 +16,12 @@ module Formtastic
   module DatePicker
     protected
 
-    def date_picker_input(method, options = {})
+    def date_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y'
-      string_input(method, date_picker_options(format, object.send(method)).merge(options))
+	input_opts = date_picker_options(format, value || object.send(method))
+	input_opts[:input_html][:class] += " #{options[:class]}" if options[:class]
+	input_opts[:input_html] = options[:input_html].merge(input_opts[:input_html]) if options[:input_html]
+      string_input(method, input_opts)
     end
 
     # Generate html input options for the datepicker_input
@@ -33,7 +36,10 @@ module Formtastic
 
     def datetime_picker_input(method, options = {})
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y %H:%M'
-      string_input(method, datetime_picker_options(format, object.send(method)).merge(options))
+	input_opts = datetime_picker_options(format, value || object.send(method))
+	input_opts[:input_html][:class] += " #{options[:class]}" if options[:class]
+	input_opts[:input_html] = options[:input_html].merge(input_opts[:input_html]) if options[:input_html]
+      string_input(method, input_opts)
     end
 
     # Generate html input options for the datepicker_input
