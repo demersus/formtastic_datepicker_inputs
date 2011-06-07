@@ -18,10 +18,21 @@ module Formtastic
 
     def date_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y'
-	input_opts = date_picker_options(format, value || object.send(method))
-	input_opts[:input_html][:class] += " #{options[:class]}" if options[:class]
-	input_opts[:input_html] = options[:input_html].merge(input_opts[:input_html]) if options[:input_html]
-      string_input(method, input_opts)
+	orig_input_opts = options.delete(:input_html)
+	orig_wrapper_opts = options.delete(:wrapper_html)
+	
+	new_opts = date_picker_options(format, value || object.send(method))
+	new_opts[:input_html][:class] += " #{options.delete(:class)}" if options[:class]
+	if orig_input_opts
+	  new_opts[:input_html][:class] += " #{orig_input_opts.delete(:class)}" if orig_input_opts[:class]
+	  new_opts[:input_html].merge(orig_input_opts)
+	end
+	if orig_wrapper_opts
+	  new_opts[:wrapper_html][:class] += " #{orig_wrapper_opts.delete(:class)}" if orig_wrapper_opts[:class]
+	  new_opts[:wrapper_html].merge(orig_wrapper_opts)
+	end
+	
+      string_input(method, new_opts)
     end
 
     # Generate html input options for the datepicker_input
@@ -36,10 +47,21 @@ module Formtastic
 
     def datetime_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y %H:%M'
-	input_opts = datetime_picker_options(format, value || object.send(method))
-	input_opts[:input_html][:class] += " #{options[:class]}" if options[:class]
-	input_opts[:input_html] = options[:input_html].merge(input_opts[:input_html]) if options[:input_html]
-      string_input(method, input_opts)
+	orig_input_opts = options.delete(:input_html)
+	orig_wrapper_opts = options.delete(:wrapper_html)
+
+	new_opts = datetime_picker_options(format, value || object.send(method)).merge(options
+	new_opts[:input_html][:class] += " #{options.delete(:class)}" if options[:class]
+	if orig_input_opts
+	  new_opts[:input_html][:class] += " #{orig_input_opts.delete(:class)}" if orig_input_opts[:class]
+	  new_opts[:input_html].merge(orig_input_opts)
+	end
+	if orig_wrapper_opts
+	  new_opts[:wrapper_html][:class] += " #{orig_wrapper_opts.delete(:class)}" if orig_wrapper_opts[:class]
+	  new_opts[:wrapper_html].merge(orig_wrapper_opts)
+	end
+	
+      string_input(method, new_opts)
     end
 
     # Generate html input options for the datepicker_input
