@@ -22,12 +22,6 @@ module Formtastic
       options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
       basic_input_helper(:text_field, :string, method, options)
     end
-
-    # Generate html input options for the datepicker_input
-    #
-    def date_picker_options(format, value = nil)
-      {:input_html => {:class => 'ui-date-picker',:value => value.try(:strftime, format)}}
-    end
   end
   
   module DateTimePicker
@@ -35,27 +29,9 @@ module Formtastic
 
     def datetime_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y %H:%M'
-	orig_input_opts = options.delete(:input_html)
-	orig_wrapper_opts = options.delete(:wrapper_html)
-
-	new_opts = datetime_picker_options(format, value || object.send(method)).merge(options
-	new_opts[:input_html][:class] += " #{options.delete(:class)}" if options[:class]
-	if orig_input_opts
-	  new_opts[:input_html][:class] += " #{orig_input_opts.delete(:class)}" if orig_input_opts[:class]
-	  new_opts[:input_html].merge(orig_input_opts)
-	end
-	if orig_wrapper_opts
-	  new_opts[:wrapper_html][:class] += " #{orig_wrapper_opts.delete(:class)}" if orig_wrapper_opts[:class]
-	  new_opts[:wrapper_html].merge(orig_wrapper_opts)
-	end
-	
-      string_input(method, new_opts)
-    end
-
-    # Generate html input options for the datepicker_input
-    #
-    def datetime_picker_options(format, value = nil)
-	  {:wrapper_html => {:class => 'datetime'},:input_html => {:class => 'ui-datetime-picker',:value => value.try(:strftime, format)}}
+      options[:class] = "ui-datetime-picker " + options[:class]
+      options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
+      basic_input_helper(:text_field, :string, method, options)
     end
   end
 end
