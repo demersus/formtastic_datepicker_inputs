@@ -18,9 +18,11 @@ module Formtastic
 
     def date_picker_input(method, options = {})
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y'
-      cls = options[:class]
-      options[:class] = "ui-date-picker"
-      options[:class] += " #{cls}" if cls
+      clss = []
+      inp_opts = options.delete(:input_html) || {}
+      clss << inp_opts.delete(:class).to_s
+      clss << options.delete(:class).to_s
+      options[:input_html] = {:class => "ui-date-picker " + clss.join(' ')}.merge inp_opts
       options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
       basic_input_helper(:text_field, :string, method, options)
     end
@@ -31,9 +33,11 @@ module Formtastic
 
     def datetime_picker_input(method, options = {}, value = nil)
       format = options[:format] || DATE_FORMATS[:default] || '%d %b %Y %H:%M'
-      cls = options[:class]
-      options[:class] = "ui-datetime-picker"
-      options[:class] += " #{cls}" if cls
+      clss = []
+      inp_opts = options.delete(:input_html) || {}
+      clss << inp_opts.delete(:class).to_s
+      clss << options.delete(:class).to_s
+      options[:input_html] = {:class => "ui-date-picker " + clss.join(' ')}.merge inp_opts
       options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
       basic_input_helper(:text_field, :string, method, options)
     end
