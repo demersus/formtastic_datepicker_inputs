@@ -23,7 +23,7 @@ module Formtastic
       clss << inp_opts.delete(:class).to_s
       clss << options.delete(:class).to_s
       options[:input_html] = {:class => "ui-date-picker " + clss.join(' ')}.merge inp_opts
-      options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
+      options[:value] = options[:value] || object.send(method).try(:strftime, format)
       basic_input_helper(:text_field, :string, method, options)
     end
   end
@@ -38,7 +38,7 @@ module Formtastic
       clss << inp_opts.delete(:class).to_s
       clss << options.delete(:class).to_s
       options[:input_html] = {:class => "ui-date-picker " + clss.join(' ')}.merge inp_opts
-      options[:value] = (options[:value] || object.send(method)).try(:strftime, format)
+      options[:value] = options[:value] || object.send(method).try(:strftime, format)
       basic_input_helper(:text_field, :string, method, options)
     end
   end
