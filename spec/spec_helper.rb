@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'rubygems'
 require 'bundler'
 Bundler.setup
@@ -43,15 +45,7 @@ module FormtasticDatepickerInputsSpecHelper
   include ActiveSupport
   include ActionController::PolymorphicRoutes if defined?(ActionController::PolymorphicRoutes)
 
-  include Formtastic::SemanticFormHelper
-
-  def rails3?
-    ActionPack::VERSION::MAJOR > 2
-  end
-
-  def rails2?
-    ActionPack::VERSION::MAJOR == 2
-  end
+  include Formtastic::Helpers::FormHelper
 
   def default_input_type(column_type, column_name = :generic_column_name)
     @new_post.stub!(column_name)
@@ -118,6 +112,27 @@ module FormtasticDatepickerInputsSpecHelper
   class ::PostModel
     extend ActiveModel::Naming if defined?(ActiveModel::Naming)
     include ActiveModel::Conversion if defined?(ActiveModel::Conversion)
+  end
+  
+  def _routes
+    url_helpers = mock('url_helpers')
+    url_helpers.stub!(:hash_for_posts_path).and_return({})
+    url_helpers.stub!(:hash_for_post_path).and_return({})
+    url_helpers.stub!(:hash_for_post_models_path).and_return({})
+    url_helpers.stub!(:hash_for_authors_path).and_return({})
+
+    mock('_routes',
+      :url_helpers => url_helpers,
+      :url_for => "/mock/path"
+    )
+  end
+
+  def controller
+    mock('controller', :controller_path= => '', :params => {})
+  end
+
+  def default_url_options
+    {}
   end
 
   def mock_everything
@@ -240,7 +255,7 @@ module FormtasticDatepickerInputsSpecHelper
     ::Post.stub!(:to_ary)
 
     @mock_file = mock('file')
-    ::Formtastic::SemanticFormBuilder.file_methods.each do |method|
+    ::Formtastic::FormBuilder.file_methods.each do |method|
       @mock_file.stub!(method).and_return(true)
     end
 
@@ -309,10 +324,10 @@ module FormtasticDatepickerInputsSpecHelper
   end
 
   def with_config(config_method_name, value, &block)
-    old_value = ::Formtastic::SemanticFormBuilder.send(config_method_name)
-    ::Formtastic::SemanticFormBuilder.send(:"#{config_method_name}=", value)
+    old_value = ::Formtastic::FormBuilder.send(config_method_name)
+    ::Formtastic::FormBuilder.send(:"#{config_method_name}=", value)
     yield
-    ::Formtastic::SemanticFormBuilder.send(:"#{config_method_name}=", old_value)
+    ::Formtastic::FormBuilder.send(:"#{config_method_name}=", old_value)
   end
 
   def with_deprecation_silenced(&block)
