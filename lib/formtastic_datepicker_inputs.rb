@@ -15,7 +15,7 @@ module Formtastic::Inputs
     end
 
     def value
-      object.send(method).try(:strftime, format)
+      input_options[:value] || object.send(method).try(:strftime, format)
     end
 
     def css_class
