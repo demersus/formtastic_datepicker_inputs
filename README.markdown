@@ -1,3 +1,11 @@
+NOTICE:
+===================
+Unfortunately, I do not have time to manage this plugin anymore.  I have moved on to use simple_form.  If anyone is interested
+in managing this plugin, and keeping up with the merge requests and issues,  please let me know, and I will direct people to your 
+version.
+
+
+
 FormtasticDatepickerInputs
 ==========================
 
