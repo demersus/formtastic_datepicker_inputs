@@ -23,17 +23,15 @@ Gem::Specification.new do |s|
   s.summary = %q{Use jQuery UI's date picker with formtastic easily}
   s.test_files = Dir.glob("spec/**/*.rb")
 
-  s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-  s.add_dependency(%q<activesupport>, [">= 3.1.0.rc4"])
-  s.add_dependency(%q<actionpack>, [">= 3.1.0.rc4"])
+  s.add_dependency(%q<activesupport>, [">= 3.1.4"])
+  s.add_dependency(%q<actionpack>, [">= 3.1.4"])
   s.add_dependency(%q<i18n>, [">= 0.4.0"])
+  s.add_dependency(%q<formtastic>, [">= 2.0.0"])
   
-  s.add_development_dependency(%q<rails>, [">= 3.1.0.rc4"])
-
-  s.add_development_dependency(%q<rspec-rails>, ["~> 2.5"])
+  s.add_development_dependency(%q<rails>, [">= 3.1.4"])
+  s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
+  s.add_development_dependency(%q<rspec-rails>, [">= 2.9.0"])
   s.add_development_dependency(%q<rspec_tag_matchers>, [">= 1.0.0"])
-  s.add_development_dependency(%q<hpricot>, ["~> 0.8.3"])
-
-  s.add_dependency(%q<formtastic>, [">= 2.0.0.rc3"])
+  s.add_development_dependency(%q<hpricot>, [">= 0.8.3"])
 end
 
