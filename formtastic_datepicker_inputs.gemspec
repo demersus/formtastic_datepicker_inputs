@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   ]
   s.files = Dir.glob("lib/**/*.rb") + [
     "MIT-LICENSE",
-    "README",
+    "README.markdown",
     "Rakefile",
     "init.rb"
   ]
