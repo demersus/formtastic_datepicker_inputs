@@ -21,11 +21,11 @@ The concept is simple. It adds a new input into formtastic that can be used like
 		<%= f.buttons %>
 	<% end -%>
 
-It adds a class onto a normal text input called 'ui-date-picker', and the parent &lt;li> it adds a class called 'date_picker.' Assuming you have already referenced jquery, and jqueryui in your layout, You can then hook this with a call from jquery:
+It adds a class onto a normal text input called 'ui-datepicker', and the parent &lt;li> it adds a class called 'date_picker.' Assuming you have already referenced jquery, and jqueryui in your layout, You can then hook this with a call from jquery:
 
-	$(document).ready(function(){
-		$('input.ui-date-picker').datepicker();
-	});
+	$('body').delegate('input.ui-datepicker','focus', function(){
+    $(this).datepicker();
+  });
 
 Development Environment
 =======================
